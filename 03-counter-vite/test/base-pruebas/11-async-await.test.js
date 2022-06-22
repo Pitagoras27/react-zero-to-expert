@@ -2,9 +2,9 @@ import { getImagen } from '../../src/base-pruebas/11-async-await';
 
 describe('Pruebas en 11 async', () => {
   //node 18 implement fetch API, therefore is not necessary use async function
-  test('should return and url string', async () => {
+  test('should log error because api key don\'t exist', async () => {
     const url = await getImagen();
-    console.log('url->', url);
+    console.log('url--*>', url);
     expect(typeof url).toBe('string');
 
   });
