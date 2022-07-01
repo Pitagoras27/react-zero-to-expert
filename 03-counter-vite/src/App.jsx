@@ -11,7 +11,10 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <FirstComponent />
+        <FirstComponent
+          title="Main header title"
+          subtitle="This is a subtitle"
+        />
         <CounterApp
           value={count}
           updateCounter={handleAdd}
