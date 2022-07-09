@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 
 // * Why isn't good practice use function state to update list of categories in father?
@@ -16,7 +17,7 @@ export const AddCategory = ({ addCategories }) => {
     setInputValue('');
   }
   return (
-    <form onSubmit={onHandleSubmit} >
+    <form onSubmit={onHandleSubmit} aria-label="form">
       <input
         type="text"
         placeholder="add new category"
@@ -25,4 +26,8 @@ export const AddCategory = ({ addCategories }) => {
       />
     </form>
   )
+}
+
+AddCategory.propTypes = {
+  addCategories: PropTypes.func.isRequired
 }
