@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const CharactersByHero = ({ characters, alter_ego }) =>
   alter_ego === characters ? null : <p>{characters}</p>;
 
-export const HeroCard = ({ 
+export const HeroCard = ({
   id,
   superhero,
   publisher,
@@ -22,7 +22,7 @@ export const HeroCard = ({
           </div>
           <div className="col-8">
             <div className="card-body">
-              <div className="card-title">{superhero}</div>
+              <h5 className="card-title">{superhero}</h5>
               <p className="card-text">{alter_ego}</p>
               <CharactersByHero characters={characters} alter_ego={alter_ego} />
             </div>
