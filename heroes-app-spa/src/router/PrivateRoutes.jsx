@@ -4,8 +4,7 @@ import { AuthContext } from "../auth";
 
 export const PrivateRoutes = React.memo(({ children }) => {
   const { search, pathname } = useLocation();
-  const path = search + pathname;
-
+  const path = pathname + search;
   localStorage.setItem("lastPath", path);
 
   const { logged: isLogged } = useContext(AuthContext);
