@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test over search component should show search component rendered 1`] = `
+<div>
+  <div
+    class="container m-3"
+  >
+    <div
+      class="row"
+    >
+      <div
+        class="col-md-5"
+      >
+        <h4>
+          Search hero
+        </h4>
+        <hr />
+        <form
+          aria-label="form"
+        >
+          <input
+            autocomplete="off"
+            class="form-control"
+            name="searchText"
+            placeholder="search a hero"
+            type="text"
+            value="batman"
+          />
+          <button
+            class="btn btn-outline-primary mt-3"
+            type="submit"
+          >
+            Search
+          </button>
+        </form>
+      </div>
+      <div
+        class="col-7"
+      >
+        <h4>
+          Results
+        </h4>
+        <hr />
+        <div
+          aria-label="show-search"
+          class="alert alert-primary animate__animated animate__fadeIn"
+          style="display: none;"
+        >
+          Search a hero
+        </div>
+        <div
+          aria-label="show-error"
+          class="alert alert-danger animate__animated animate__fadeIn"
+          style="display: none;"
+        >
+          No hero with 
+          <b>
+            batman
+          </b>
+        </div>
+        <div
+          class="col animate__animated animate__fadeInUp"
+        >
+          <div
+            class="card"
+          >
+            <div
+              class="row no-glutters"
+            >
+              <div
+                class="col-4"
+              >
+                <img
+                  alt="Batman"
+                  class="card-img"
+                  src="assets/heroes/dc-batman.jpg"
+                />
+              </div>
+              <div
+                class="col-8"
+              >
+                <div
+                  class="card-body"
+                >
+                  <h5
+                    class="card-title"
+                  >
+                    Batman
+                  </h5>
+                  <p
+                    class="card-text"
+                  >
+                    Bruce Wayne
+                  </p>
+                </div>
+                <p
+                  class="card-text"
+                >
+                  <small
+                    class="text-muted"
+                  >
+                    Detective Comics #27
+                  </small>
+                </p>
+                <a
+                  href="/hero/dc-batman"
+                >
+                  Más...
+                </a>
+              </div>
+            </div>
+            Batman
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  ;
+</div>
+`;
