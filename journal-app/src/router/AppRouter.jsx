@@ -1,13 +1,14 @@
-import { Route, Router } from "react-router-dom";
-import { AuthRoutes } from "../auth";
-import { JournalRoutes } from "../journal";
+import { Route, Routes } from "react-router-dom";
+import { AuthRoutes } from "../auth/routes/AuthRoutes";
+import { JournalRoutes } from "../journal/routes/JournalRoutes";
 
 export const AppRouter = () => {
+  console.log("in authRoutes");
   return (
-    <Router>
-      <Route to="/auth" element={<AuthRoutes />} />
+    <Routes>
+      <Route path="/auth/*" element={<AuthRoutes />} />
 
-      <Route to="/" element={<JournalRoutes />} />
-    </Router>
+      <Route path="/*" element={<JournalRoutes />} />
+    </Routes>
   );
 };

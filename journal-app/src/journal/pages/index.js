@@ -1,1 +1,0 @@
-export { JournalApp } from "../../JournalApp";
