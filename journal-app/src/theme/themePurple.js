@@ -7,7 +7,7 @@ export const themePurple = createTheme({
       main: "#262256",
     },
     secondary: {
-      main: "#382684",
+      main: "#543884",
     },
     error: {
       main: red.A400,

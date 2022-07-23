@@ -3,7 +3,6 @@ import { AuthRoutes } from "../auth/routes/AuthRoutes";
 import { JournalRoutes } from "../journal/routes/JournalRoutes";
 
 export const AppRouter = () => {
-  console.log("in authRoutes");
   return (
     <Routes>
       <Route path="/auth/*" element={<AuthRoutes />} />
