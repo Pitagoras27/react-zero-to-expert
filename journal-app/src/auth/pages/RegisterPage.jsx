@@ -1,12 +1,44 @@
-import { Google } from "@mui/icons-material";
 import { Button, Grid, Link, TextField, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
+import { useForm } from "../../hooks/useForm";
 import { AuthLayout } from "../layout/AuthLayout";
 
+const dataFormRegister = {
+  displayName: "",
+  email: "",
+  password: "",
+};
+
+const validatedFields = {
+  displayName: [
+    (value, b) => !value.length >= 1,
+    "The full name don't have empty",
+  ],
+  email: [(value) => !value.includes("@"), "The email is not valid"],
+  password: [
+    (value) => !(value.length >= 6),
+    "The password must have 6 characters minimun",
+  ],
+};
+
 export const RegisterPage = () => {
+  const {
+    displayName,
+    email,
+    password,
+    handleChange,
+    validationValues,
+    displayNameValid,
+    emailValid,
+    passwordValid,
+  } = useForm(dataFormRegister, validatedFields);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
   return (
     <AuthLayout title="Register">
-      <form>
+      <form onSubmit={handleSubmit}>
         <Grid container>
           <Grid item xs={12} sx={{ mt: 2 }}>
             <TextField
@@ -15,6 +47,11 @@ export const RegisterPage = () => {
               placeholder="Full Name"
               autoComplete="off"
               fullWidth
+              value={displayName}
+              onChange={handleChange}
+              name="displayName"
+              error={!!displayNameValid}
+              helperText={displayNameValid}
             />
           </Grid>
         </Grid>
@@ -27,6 +64,11 @@ export const RegisterPage = () => {
               placeholder="correo@google.com"
               autoComplete="off"
               fullWidth
+              value={email}
+              onChange={handleChange}
+              name="email"
+              error={!!emailValid}
+              helperText={emailValid}
             />
           </Grid>
         </Grid>
@@ -39,13 +81,18 @@ export const RegisterPage = () => {
               placeholder="Password"
               autoComplete="off"
               fullWidth
+              value={password}
+              onChange={handleChange}
+              name="password"
+              error={!!passwordValid}
+              helperText={passwordValid}
             />
           </Grid>
         </Grid>
 
         <Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>
           <Grid item xs={12} sm={6}>
-            <Button variant="contained" fullWidth>
+            <Button variant="contained" fullWidth type="submit">
               <Typography>Register</Typography>
             </Button>
           </Grid>

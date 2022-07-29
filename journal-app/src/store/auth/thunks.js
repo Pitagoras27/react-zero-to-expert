@@ -7,12 +7,11 @@ export const checkingAuthentication = (email, password) => {
   };
 };
 
-export const isSigningWithGoogle = () => {
+export const startSigningWithGoogle = () => {
   return async (dispatch) => {
     dispatch(checkingCredentials());
 
     const result = await singWithGoogle();
-
     if (!result.ok) return dispatch(logout(result.errorMessage));
 
     dispatch(login(result));

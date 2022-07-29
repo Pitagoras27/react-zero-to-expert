@@ -4,7 +4,10 @@ import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
-import { checkingAuthentication, isSigningWithGoogle } from "../../store/auth";
+import {
+  checkingAuthentication,
+  startSigningWithGoogle,
+} from "../../store/auth";
 import { AuthLayout } from "../layout/AuthLayout";
 
 export const LoginPage = () => {
@@ -23,7 +26,7 @@ export const LoginPage = () => {
   };
 
   const onGoogleOnSingIn = () => {
-    dispatch(isSigningWithGoogle());
+    dispatch(startSigningWithGoogle());
   };
 
   return (

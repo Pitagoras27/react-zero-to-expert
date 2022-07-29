@@ -1,24 +1,42 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export const useForm = (initialState) => {
-        const [inputValue, setInputValue] = useState(initialState);
+export const useForm = (initialState, validatedFields = {}) => {
+  const [inputValue, setInputValue] = useState(initialState);
+  const [validationValues, setValidationValues] = useState({});
 
-        const handleChange = ({ target }) => {
-                const { name, value } = target;
-                setInputValue({
-                        ...inputValue,
-                        [name]: value,
-                });
-        };
+  useEffect(() => {
+    validationFields();
+  }, [inputValue]);
 
-        const onResetForm = () => {
-                setInputValue(initialState);
-        };
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
+    setInputValue({
+      ...inputValue,
+      [name]: value,
+    });
+  };
 
-        return {
-                inputValue,
-                ...inputValue,
-                handleChange,
-                onResetForm,
-        };
+  const onResetForm = () => {
+    setInputValue(initialState);
+  };
+
+  const validationFields = () => {
+    const helper = {};
+
+    for (let field of Object.keys(validatedFields)) {
+      const [fn, errorMessage] = validatedFields[field];
+      helper[`${field}Valid`] = fn(inputValue[field]) ? errorMessage : null;
+    }
+
+    setValidationValues(helper);
+  };
+
+  return {
+    inputValue,
+    ...inputValue,
+    ...validationValues,
+    validationValues,
+    handleChange,
+    onResetForm,
+  };
 };
