@@ -1,4 +1,5 @@
 import { Button, Grid, Link, TextField, Typography } from "@mui/material";
+import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
 import { AuthLayout } from "../layout/AuthLayout";
@@ -27,17 +28,21 @@ export const RegisterPage = () => {
     email,
     password,
     handleChange,
-    validationValues,
     displayNameValid,
     emailValid,
     passwordValid,
+    isFormValid,
   } = useForm(dataFormRegister, validatedFields);
+
+  const [submitValidation, setSubmitValidation] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setSubmitValidation(true);
   };
   return (
     <AuthLayout title="Register">
+      {/* <h4>The form is {isFormValid ? "valid" : "incorrect"}</h4> */}
       <form onSubmit={handleSubmit}>
         <Grid container>
           <Grid item xs={12} sx={{ mt: 2 }}>
@@ -50,7 +55,7 @@ export const RegisterPage = () => {
               value={displayName}
               onChange={handleChange}
               name="displayName"
-              error={!!displayNameValid}
+              error={!!displayNameValid && submitValidation}
               helperText={displayNameValid}
             />
           </Grid>
@@ -67,7 +72,7 @@ export const RegisterPage = () => {
               value={email}
               onChange={handleChange}
               name="email"
-              error={!!emailValid}
+              error={!!emailValid && submitValidation}
               helperText={emailValid}
             />
           </Grid>
@@ -84,7 +89,7 @@ export const RegisterPage = () => {
               value={password}
               onChange={handleChange}
               name="password"
-              error={!!passwordValid}
+              error={!!passwordValid && submitValidation}
               helperText={passwordValid}
             />
           </Grid>

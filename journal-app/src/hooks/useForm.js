@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export const useForm = (initialState, validatedFields = {}) => {
   const [inputValue, setInputValue] = useState(initialState);
@@ -20,6 +20,13 @@ export const useForm = (initialState, validatedFields = {}) => {
     setInputValue(initialState);
   };
 
+  const isFormValid = useMemo(() => {
+    for (const fieldForm of Object.keys(validationValues)) {
+      if (validationValues[fieldForm] !== null) return false;
+    }
+    return true;
+  }, [validationValues]);
+
   const validationFields = () => {
     const helper = {};
 
@@ -35,7 +42,7 @@ export const useForm = (initialState, validatedFields = {}) => {
     inputValue,
     ...inputValue,
     ...validationValues,
-    validationValues,
+    isFormValid,
     handleChange,
     onResetForm,
   };
