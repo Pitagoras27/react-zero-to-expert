@@ -1,7 +1,9 @@
 import { Button, Grid, Link, TextField, Typography } from "@mui/material";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
+import { startCreatingUserWithEmailPassword } from "../../store/auth";
 import { AuthLayout } from "../layout/AuthLayout";
 
 const dataFormRegister = {
@@ -23,7 +25,10 @@ const validatedFields = {
 };
 
 export const RegisterPage = () => {
+  const dispath = useDispatch();
+
   const {
+    inputValue,
     displayName,
     email,
     password,
@@ -39,6 +44,9 @@ export const RegisterPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitValidation(true);
+
+    if (!isFormValid) return;
+    dispath(startCreatingUserWithEmailPassword(inputValue));
   };
   return (
     <AuthLayout title="Register">
