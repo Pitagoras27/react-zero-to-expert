@@ -8,6 +8,10 @@ export const useForm = (initialState, validatedFields = {}) => {
     validationFields();
   }, [inputValue]);
 
+  useEffect(() => {
+    setInputValue(initialState);
+  }, [initialState]);
+
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setInputValue({
