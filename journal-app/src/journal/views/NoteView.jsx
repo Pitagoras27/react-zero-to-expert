@@ -16,6 +16,7 @@ export const NoteView = () => {
   const { activeNote, messageSaved, isSaving } = useSelector(
     (state) => state.journal
   );
+
   const inputFile = useRef();
   const dispath = useDispatch();
 
@@ -111,7 +112,7 @@ export const NoteView = () => {
         />
       </Grid>
 
-      <ImageGallery />
+      <ImageGallery imageUrls={activeNote.imageUrls} />
     </Grid>
   );
 };
