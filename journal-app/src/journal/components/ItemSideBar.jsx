@@ -23,7 +23,7 @@ export const ItemSideBar = ({
   }, [title]);
 
   const onClickNote = (e) => {
-    dispatch(setActiveNote({ title, description, date, imageUrls }));
+    dispatch(setActiveNote({ title, description, date, imageUrls, id }));
   };
 
   return (

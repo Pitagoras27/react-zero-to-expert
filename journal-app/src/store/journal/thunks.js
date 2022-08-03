@@ -6,6 +6,7 @@ import {
   savingNote,
   setActiveNote,
   setNotes,
+  updateNote,
 } from "./journalSlide";
 
 export const startNewNote = () => {
@@ -36,5 +37,25 @@ export const startLoadingNotes = () => {
 
     const notes = await loadNotes(uid);
     dispatch(setNotes(notes));
+  };
+};
+
+export const startSavingNote = () => {
+  return async (dispatch, getState) => {
+    try {
+      // dispatch(setSavingUpdateNote())
+      const { uid } = getState().auth;
+      const { activeNote, notes } = getState().journal;
+
+      const noteUpdate = { ...activeNote };
+      delete noteUpdate.id;
+
+      const docPath = doc(FirebaseDB, `${uid}/journal/notes/${activeNote.id}`);
+      await setDoc(docPath, noteUpdate, { merge: true });
+
+      dispatch(updateNote({ activeNote, notes }));
+    } catch (error) {
+      console.log(error, "<---");
+    }
   };
 };

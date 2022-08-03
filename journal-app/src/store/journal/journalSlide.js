@@ -27,8 +27,20 @@ export const journalSlice = createSlice({
     setNotes: (state, action) => {
       state.notes = action.payload;
     },
-    setSaving: (state) => {},
-    updateNote: (state, action) => {},
+    setSavingUpdateNote: (state) => {
+      state.isSaving = true;
+    },
+    updateNote: (state, action) => {
+      const { notes, activeNote } = action.payload;
+      // ? For the same way notes state.notes is and array of notes updated but is a proxy
+      // state.notes === notes
+      state.notes = notes.map((note) => {
+        if (note.id === activeNote.id) {
+          return { ...note, ...activeNote };
+        }
+        return note;
+      });
+    },
     deleteNoteById: (state, action) => {},
   },
 });
@@ -39,7 +51,7 @@ export const {
   addNewEmptyNote,
   setActiveNote,
   setNotes,
-  setSaving,
+  setSavingUpdateNote,
   updateNote,
   deleteNodeById,
 } = journalSlice.actions;
