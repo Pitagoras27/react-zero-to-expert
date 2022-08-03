@@ -11,6 +11,7 @@ export const journalSlice = createSlice({
     //   title: "",
     //   body: "",
     //   date: new Date().getTime()
+    //   imageUrls: []
     // }
   },
   reducers: {
@@ -44,6 +45,13 @@ export const journalSlice = createSlice({
       state.messageSaved = `${activeNote.title} is saved!`;
       state.isSaving = false;
     },
+    setActiveNoteWithImgsUrls: (state, action) => {
+      state.activeNote.imageUrls = [
+        ...state.activeNote.imageUrls,
+        ...action.payload,
+      ];
+      state.isSaving = false;
+    },
     deleteNoteById: (state, action) => {},
   },
 });
@@ -57,4 +65,5 @@ export const {
   setSavingUpdateNote,
   updateNote,
   deleteNodeById,
+  setActiveNoteWithImgsUrls,
 } = journalSlice.actions;
