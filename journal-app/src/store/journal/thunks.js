@@ -6,6 +6,7 @@ import {
   savingNote,
   setActiveNote,
   setNotes,
+  setSavingUpdateNote,
   updateNote,
 } from "./journalSlide";
 
@@ -43,7 +44,7 @@ export const startLoadingNotes = () => {
 export const startSavingNote = () => {
   return async (dispatch, getState) => {
     try {
-      // dispatch(setSavingUpdateNote())
+      dispatch(setSavingUpdateNote());
       const { uid } = getState().auth;
       const { activeNote, notes } = getState().journal;
 
