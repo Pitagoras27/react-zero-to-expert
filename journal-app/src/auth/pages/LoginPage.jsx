@@ -17,11 +17,13 @@ import {
 } from "../../store/auth";
 import { AuthLayout } from "../layout/AuthLayout";
 
+const formLoginData = {
+  email: "",
+  password: "",
+};
+
 export const LoginPage = () => {
-  const { email, password, handleChange } = useForm({
-    email: "",
-    password: "",
-  });
+  const { email, password, handleChange } = useForm(formLoginData);
   const dispatch = useDispatch();
   const { status, errorMessage } = useSelector((state) => state.auth);
   const isAuthenticated = useMemo(() => status === "checking", [status]);
