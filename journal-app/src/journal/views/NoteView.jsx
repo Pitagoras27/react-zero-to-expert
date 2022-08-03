@@ -1,18 +1,22 @@
-import { SaveOutlined } from "@mui/icons-material";
-import { Button, Grid, TextField, Typography } from "@mui/material";
-import { useEffect, useMemo } from "react";
+import { SaveOutlined, UploadFileOutlined } from "@mui/icons-material";
+import { Button, Grid, IconButton, TextField, Typography } from "@mui/material";
+import { useEffect, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.css";
 import { useForm } from "../../hooks/useForm";
 import { setActiveNote } from "../../store/journal/journalSlide";
-import { startSavingNote } from "../../store/journal/thunks";
+import {
+  startSavingNote,
+  startUploadingFiles,
+} from "../../store/journal/thunks";
 import { ImageGallery } from "../components";
 
 export const NoteView = () => {
   const { activeNote, messageSaved, isSaving } = useSelector(
     (state) => state.journal
   );
+  const inputFile = useRef();
   const dispath = useDispatch();
 
   const { title, description, date, handleChange, inputValue } =
@@ -33,7 +37,12 @@ export const NoteView = () => {
   const onSaveNote = () => {
     dispath(startSavingNote());
   };
-  console.log("isSaving-->", isSaving);
+
+  const onFileInputChange = ({ target }) => {
+    if (target.files.length === 0) return;
+    dispath(startUploadingFiles(target.files));
+  };
+
   return (
     <Grid
       container
@@ -45,6 +54,24 @@ export const NoteView = () => {
         <Typography fontSize={39} fontWeight="light">
           {actualDate}
         </Typography>
+      </Grid>
+
+      <Grid item>
+        <input
+          type="file"
+          multiple
+          onChange={onFileInputChange}
+          ref={inputFile}
+          style={{ display: "none" }}
+        />
+
+        <IconButton
+          color="primary"
+          disabled={isSaving}
+          onClick={() => inputFile.current.click()}
+        >
+          <UploadFileOutlined />
+        </IconButton>
       </Grid>
 
       <Grid item>
