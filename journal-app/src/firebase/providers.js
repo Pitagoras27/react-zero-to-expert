@@ -58,11 +58,9 @@ export const registerUserWithEmailPassword = async ({
     };
   } catch (error) {
     const errorMessage = error.message;
-    const errorCode = error.code;
     return {
       ok: false,
       errorMessage,
-      errorCode,
     };
   }
 };
@@ -81,6 +79,7 @@ export const loginWithEmailPassword = async ({ email, password }) => {
       uid,
       photoURL,
       displayName,
+      errorMessage: null,
     };
   } catch (error) {
     const errorCode = error.code;
