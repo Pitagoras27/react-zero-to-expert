@@ -2,29 +2,24 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore/lite";
+import { getEnviromentVaribles } from "../helpers/getEnviromentVaribles";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+const {
+  VITE_APIKEY,
+  VITE_AUTHDOMAIN,
+  VITE_PROJECTID,
+  VITE_STORAGEBUCKET,
+  VITE_MESSAGINGSENDERID,
+  VITE_APPID,
+} = getEnviromentVaribles();
 
-// Your web app's Firebase configuration
-// Dev / Prod
-// const firebaseConfig = {
-//   apiKey: "AIzaSyAaVYSUZzR8samokKthiqICkSk1hH6Hwnk",
-//   authDomain: "react-cursos-932e5.firebaseapp.com",
-//   projectId: "react-cursos-932e5",
-//   storageBucket: "react-cursos-932e5.appspot.com",
-//   messagingSenderId: "755392462218",
-//   appId: "1:755392462218:web:9f9af6aad7e7537128dc73",
-// };
-
-// Testing
 const firebaseConfig = {
-  apiKey: "AIzaSyD2I9hUgqN_oYA1zQNNCP5iYKgRtSIszH4",
-  authDomain: "todo-list-angular-ebc4e.firebaseapp.com",
-  projectId: "todo-list-angular-ebc4e",
-  storageBucket: "todo-list-angular-ebc4e.appspot.com",
-  messagingSenderId: "310548461150",
-  appId: "1:310548461150:web:8471c21945172bd32a26cf",
+  apiKey: VITE_APIKEY,
+  authDomain: VITE_AUTHDOMAIN,
+  projectId: VITE_PROJECTID,
+  storageBucket: VITE_STORAGEBUCKET,
+  messagingSenderId: VITE_MESSAGINGSENDERID,
+  appId: VITE_APPID,
 };
 
 // Initialize Firebase

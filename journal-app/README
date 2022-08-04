@@ -1,0 +1,13 @@
+#Journal App crud build with firebase
+
+⋅⋅1. This project works with:
+
+⋅⋅⋅React with Vite
+⋅⋅⋅React Router
+⋅⋅⋅MaterialUI
+⋅⋅⋅Firebase
+⋅⋅⋅Instance of DB in firestore
+⋅⋅⋅Cloudinary by storage images in independent server
+⋅⋅⋅Redux Toolkit
+⋅⋅⋅Test with Jest and @testing-library of react
+⋅⋅⋅And environment variables: For this see .env.template file
