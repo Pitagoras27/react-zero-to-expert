@@ -30,8 +30,8 @@ export const authCheckingCredentialsState = {
 };
 
 export const authUserState = {
-  uid: null,
-  email: null,
-  displayName: null,
-  photoURL: null,
+  uid: "123abc",
+  email: "carlos-test@google.com",
+  displayName: "demoTest",
+  photoURL: "https://cloudimages.com/image.jpg",
 };
