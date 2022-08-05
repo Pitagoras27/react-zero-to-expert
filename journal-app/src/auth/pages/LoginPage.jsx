@@ -5,7 +5,7 @@ import {
   Grid,
   Link,
   TextField,
-  Typography,
+  Typography
 } from "@mui/material";
 import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,7 +13,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
 import {
   startLoginWithEmailPassword,
-  startSigningWithGoogle,
+  startSigningWithGoogle
 } from "../../store/auth";
 import { AuthLayout } from "../layout/AuthLayout";
 
@@ -41,6 +41,7 @@ export const LoginPage = () => {
   return (
     <AuthLayout title="Login">
       <form
+        aria-label="submit-form"
         onSubmit={onSubmit}
         className="animate__animated animate__fadeIn animate__faster"
       >
@@ -65,6 +66,9 @@ export const LoginPage = () => {
               label="Password"
               name="password"
               type="password"
+              inputProps={{
+                'data-testid': 'password'
+              }}
               value={password}
               placeholder="Password"
               autoComplete="off"
@@ -96,6 +100,7 @@ export const LoginPage = () => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Button
+              aria-label="google-sign-in-button"
               onClick={onGoogleOnSingIn}
               variant="contained"
               disabled={isAuthenticated}
