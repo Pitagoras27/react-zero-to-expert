@@ -3,11 +3,11 @@ import { LoginPage } from "../Auth";
 import { CalendarPage } from "../Calendar";
 
 export const RouterApp = () => {
-  const isAuthenticated = false;
+  const status = 'not-authenticated';
   return (
     <Routes>
       {
-        isAuthenticated
+        status === 'not-authenticated'
           ? <Route path='/*' element={<CalendarPage />} />
           : <Route path='/auth/*' element={<LoginPage /> } />
       }
