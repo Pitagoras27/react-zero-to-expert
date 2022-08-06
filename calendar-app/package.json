@@ -9,7 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "big": "^0.5.2",
+    "calendar": "^0.1.1",
+    "date-fns": "^2.29.1",
     "react": "^18.2.0",
+    "react-big-calendar": "^1.5.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "6"
   },
