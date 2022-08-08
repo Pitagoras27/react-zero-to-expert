@@ -4,6 +4,7 @@ import { Calendar } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { CreateModal, DayEventBox, NavBar } from "../";
 import { calendarLocalizer, getMessages } from "../../helpers";
+import { useUiStore } from "../../hooks";
 
 // TODO: Review this basic implementation of react-big-calendar and date-fns and if it is neccessary add details in readme file
 
@@ -35,10 +36,12 @@ const eventStyleGetter = (event, start, end, isSelected) => {
 };
 
 export const CalendarPage = () => {
+  const { onModalOpen } = useUiStore();
   const [viewSelected, setViewSelected] = useState(
     localStorage.getItem("view") || "week"
   );
-  const onDoubleClick = (event) => {};
+
+  const onDoubleClick = (event) => onModalOpen();
 
   const onOneClick = (event) => {};
 

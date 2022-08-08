@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import Modal from "react-modal";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { useModalForm } from "../../hooks/useModalForm";
+import { useModalForm, useUiStore } from "../../hooks";
 
 const customStyles = {
   content: {
@@ -20,15 +20,14 @@ const customStyles = {
 Modal.setAppElement("#root");
 
 export const CreateModal = () => {
+  const { isDateModalOpen, onCloseModal } = useUiStore();
   const {
     title,
     notes,
     start,
     end,
     validationText,
-    modalClose,
     inputRef,
-    closeModalAction,
     onValueChange,
     onDateSelected,
     onSubmitEvent,
@@ -41,8 +40,8 @@ export const CreateModal = () => {
 
   return (
     <Modal
-      isOpen={modalClose}
-      onRequestClose={closeModalAction}
+      isOpen={isDateModalOpen}
+      onRequestClose={onCloseModal}
       style={customStyles}
       classModal="modal"
       overClassName="modal-fondo"

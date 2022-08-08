@@ -12,9 +12,6 @@ export const useModalForm = (initialState) => {
     setValidationText(title.length <= 0 ? "is-invalid" : "");
   }, [validationText, title]);
 
-  const [modalClose, setModalClose] = useState(true);
-  const closeModalAction = () => setModalClose(false);
-
   const onValueChange = ({ target }) => {
     setFormValues({
       ...formValues,
@@ -49,9 +46,7 @@ export const useModalForm = (initialState) => {
     start,
     end,
     validationText,
-    modalClose,
     inputRef,
-    closeModalAction,
     onValueChange,
     onDateSelected,
     onSubmitEvent,
