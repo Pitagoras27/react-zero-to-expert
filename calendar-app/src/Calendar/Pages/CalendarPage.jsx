@@ -2,7 +2,7 @@ import { addHours } from "date-fns";
 import { useState } from "react";
 import { Calendar } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { DayEventBox, NavBar } from "../";
+import { CreateModal, DayEventBox, NavBar } from "../";
 import { calendarLocalizer, getMessages } from "../../helpers";
 
 // TODO: Review this basic implementation of react-big-calendar and date-fns and if it is neccessary add details in readme file
@@ -33,12 +33,6 @@ const eventStyleGetter = (event, start, end, isSelected) => {
 
   return { style };
 };
-
-// props events -> onDoubleClickEvent, onSelectEvent, onView
-// prop related view -> defaultView
-// Instalar react-modal
-// Crear componente CreateModal
-// props config -> className="modal" overClassName="modal-fondo" closeTimeoutMS={200}
 
 export const CalendarPage = () => {
   const [viewSelected, setViewSelected] = useState(
@@ -73,6 +67,8 @@ export const CalendarPage = () => {
         onSelectEvent={onOneClick}
         onView={onViewChange}
       />
+
+      <CreateModal />
     </>
   );
 };
