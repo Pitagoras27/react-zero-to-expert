@@ -1,10 +1,10 @@
 import { addHours } from "date-fns";
 import es from "date-fns/locale/es";
-import { useState } from "react";
 import DatePicker from "react-datepicker";
 import Modal from "react-modal";
 
 import "react-datepicker/dist/react-datepicker.css";
+import { useModalForm } from "../../hooks/useModalForm";
 
 const customStyles = {
   content: {
@@ -20,36 +20,29 @@ const customStyles = {
 Modal.setAppElement("#root");
 
 export const CreateModal = () => {
-  const [formValues, setFormValues] = useState({
+  const {
+    title,
+    notes,
+    start,
+    end,
+    validationText,
+    modalClose,
+    inputRef,
+    closeModalAction,
+    onValueChange,
+    onDateSelected,
+    onSubmitEvent,
+  } = useModalForm({
     title: "Carlor",
     notes: "Purification",
     start: new Date(),
     end: addHours(new Date(), 2),
   });
 
-  const { title, notes, start, end } = formValues;
-
-  const [modalClose, setModalClose] = useState(true);
-  const closeModal = () => setModalClose(false);
-
-  const onValueChange = ({ target }) => {
-    setFormValues({
-      ...formValues,
-      [target.name]: target.value,
-    });
-  };
-
-  const onDateSelected = (data, timeAction) => {
-    setFormValues({
-      ...formValues,
-      [timeAction]: data,
-    });
-  };
-
   return (
     <Modal
       isOpen={modalClose}
-      onRequestClose={closeModal}
+      onRequestClose={closeModalAction}
       style={customStyles}
       classModal="modal"
       overClassName="modal-fondo"
@@ -57,7 +50,7 @@ export const CreateModal = () => {
     >
       <h1> Nuevo evento </h1>
       <hr />
-      <form className="container">
+      <form className="container" onSubmit={onSubmitEvent}>
         <div className="form-group mb-2">
           <label>Fecha y hora inicio</label>
           <DatePicker
@@ -90,8 +83,9 @@ export const CreateModal = () => {
           <label>Titulo y notas</label>
           <input
             type="text"
-            className="form-control"
+            className={`form-control ${validationText}`}
             placeholder="Título del evento"
+            ref={inputRef}
             name="title"
             autoComplete="off"
             value={title}
@@ -125,6 +119,3 @@ export const CreateModal = () => {
     </Modal>
   );
 };
-
-//
-// DatePicker (end) -> minDate=
