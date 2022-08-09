@@ -1,7 +1,7 @@
 import { addHours } from "date-fns";
 import { useCalendarStore, useUiStore } from "../../hooks";
 
-export const FloattingButton = () => {
+export const FabToAddEvent = () => {
   const { onModalOpen } = useUiStore();
   const { onSetActiveEvent } = useCalendarStore();
 

@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { Calendar } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { CreateModal, DayEventBox, NavBar } from "../";
+import { CreateModal, DayEventBox, FabToAddEvent, FabToDeleteEvent, NavBar } from "../";
 import { calendarLocalizer, getMessages } from "../../helpers";
 import { useUiStore } from "../../hooks";
 import { useCalendarStore } from "../../hooks/useCalendarStore";
-import { FloattingButton } from "../Components/FloattingButton";
 
 // TODO: Review this basic implementation of react-big-calendar and date-fns and if it is neccessary add details in readme file
 
@@ -61,7 +60,8 @@ export const CalendarPage = () => {
         onView={onViewChange}
       />
 
-      <FloattingButton />
+      <FabToAddEvent />
+      <FabToDeleteEvent />
       <CreateModal />
     </>
   );
