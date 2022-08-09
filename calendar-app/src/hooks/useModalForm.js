@@ -1,12 +1,16 @@
 import { differenceInSeconds } from "date-fns";
 import { useMemo, useRef, useState } from "react";
 import Swal from "sweetalert2";
+import { useCalendarStore } from "./useCalendarStore";
+import { useUiStore } from "./useUiStore";
 
 export const useModalForm = (initialState) => {
   const [formValues, setFormValues] = useState(initialState);
   const { title, notes, start, end } = formValues;
   const inputRef = useRef(null);
   const [validationText, setValidationText] = useState("");
+  const { startSavingEvent } = useCalendarStore();
+  const { onCloseModal } = useUiStore();
 
   useMemo(() => {
     setValidationText(title.length <= 0 ? "is-invalid" : "");
@@ -38,6 +42,9 @@ export const useModalForm = (initialState) => {
       });
     }
     if (title.length <= 0) inputRef.current.select();
+
+    startSavingEvent(formValues);
+    onCloseModal();
   };
 
   return {

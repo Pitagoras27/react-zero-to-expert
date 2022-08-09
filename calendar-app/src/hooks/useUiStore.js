@@ -4,6 +4,7 @@ import { onModalDateClose, onModalDateOpen } from "../store";
 export const useUiStore = () => {
   const { isDateModalOpen } = useSelector((state) => state.ui);
   const dispatch = useDispatch();
+
   const onModalOpen = () => {
     dispatch(onModalDateOpen());
   };
