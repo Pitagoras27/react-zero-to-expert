@@ -47,6 +47,7 @@ export const useModalForm = (initialState) => {
     end,
     validationText,
     inputRef,
+    setFormValues,
     onValueChange,
     onDateSelected,
     onSubmitEvent,

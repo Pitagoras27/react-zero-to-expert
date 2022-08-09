@@ -1,26 +1,12 @@
-import { addHours } from "date-fns";
 import { useState } from "react";
 import { Calendar } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { CreateModal, DayEventBox, NavBar } from "../";
 import { calendarLocalizer, getMessages } from "../../helpers";
 import { useUiStore } from "../../hooks";
+import { useCalendarStore } from "../../hooks/useCalendarStore";
 
 // TODO: Review this basic implementation of react-big-calendar and date-fns and if it is neccessary add details in readme file
-
-const events = [
-  {
-    title: "Cumpleaños del Jefe",
-    notes: "Hay que comprar el pastel",
-    start: new Date(),
-    end: addHours(new Date(), 2),
-    bgColor: "#fafafa",
-    user: {
-      _id: "123",
-      name: "Carlos",
-    },
-  },
-];
 
 const eventStyleGetter = (event, start, end, isSelected) => {
   // console.log({ event, start, end, isSelected });
@@ -36,6 +22,7 @@ const eventStyleGetter = (event, start, end, isSelected) => {
 };
 
 export const CalendarPage = () => {
+  const { events, onSetActiveEvent } = useCalendarStore();
   const { onModalOpen } = useUiStore();
   const [viewSelected, setViewSelected] = useState(
     localStorage.getItem("view") || "week"
@@ -43,7 +30,9 @@ export const CalendarPage = () => {
 
   const onDoubleClick = (event) => onModalOpen();
 
-  const onOneClick = (event) => {};
+  const onOneClick = (event) => {
+    onSetActiveEvent(event);
+  };
 
   const onViewChange = (event) => {
     localStorage.setItem("view", event);

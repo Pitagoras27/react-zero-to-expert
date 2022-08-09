@@ -3,8 +3,9 @@ import es from "date-fns/locale/es";
 import DatePicker from "react-datepicker";
 import Modal from "react-modal";
 
+import { useEffect } from "react";
 import "react-datepicker/dist/react-datepicker.css";
-import { useModalForm, useUiStore } from "../../hooks";
+import { useCalendarStore, useModalForm, useUiStore } from "../../hooks";
 
 const customStyles = {
   content: {
@@ -21,6 +22,7 @@ Modal.setAppElement("#root");
 
 export const CreateModal = () => {
   const { isDateModalOpen, onCloseModal } = useUiStore();
+  const { activeEvent } = useCalendarStore();
   const {
     title,
     notes,
@@ -31,12 +33,19 @@ export const CreateModal = () => {
     onValueChange,
     onDateSelected,
     onSubmitEvent,
+    setFormValues,
   } = useModalForm({
     title: "Carlor",
     notes: "Purification",
     start: new Date(),
     end: addHours(new Date(), 2),
   });
+
+  useEffect(() => {
+    if (activeEvent) {
+      setFormValues({ ...activeEvent });
+    }
+  }, [activeEvent]);
 
   return (
     <Modal
