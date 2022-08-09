@@ -5,8 +5,7 @@ export const FloattingButton = () => {
   const { onModalOpen } = useUiStore();
   const { onSetActiveEvent } = useCalendarStore();
 
-  const onAddNewEvent = () => {
-    onModalOpen();
+  const handleAddNewEvent = () => {
     onSetActiveEvent({
       title: "",
       notes: "",
@@ -18,10 +17,11 @@ export const FloattingButton = () => {
         name: "",
       },
     });
+    onModalOpen();
   };
 
   return (
-    <button className="fab btn btn-primary" onClick={onAddNewEvent}>
+    <button className="fab btn btn-primary" onClick={handleAddNewEvent}>
       <i className="fas fa-plus"></i>
     </button>
   );

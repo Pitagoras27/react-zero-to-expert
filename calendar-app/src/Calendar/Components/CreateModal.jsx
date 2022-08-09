@@ -28,7 +28,7 @@ export const CreateModal = () => {
     notes,
     start,
     end,
-    validationText,
+    titleInputClass,
     inputRef,
     onValueChange,
     onDateSelected,
@@ -91,7 +91,7 @@ export const CreateModal = () => {
           <label>Titulo y notas</label>
           <input
             type="text"
-            className={`form-control ${validationText}`}
+            className={`form-control ${titleInputClass}`}
             placeholder="Título del evento"
             ref={inputRef}
             name="title"

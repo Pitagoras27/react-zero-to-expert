@@ -8,12 +8,14 @@ export const useModalForm = (initialState) => {
   const [formValues, setFormValues] = useState(initialState);
   const { title, notes, start, end } = formValues;
   const inputRef = useRef(null);
-  const [validationText, setValidationText] = useState("");
+  const [validationText, setValidationText] = useState(false);
   const { startSavingEvent } = useCalendarStore();
   const { onCloseModal } = useUiStore();
 
-  useMemo(() => {
-    setValidationText(title.length <= 0 ? "is-invalid" : "");
+  const titleInputClass = useMemo(() => {
+    if (!validationText) return "first run";
+
+    return title.length <= 0 ? "is-invalid" : "";
   }, [validationText, title]);
 
   const onValueChange = ({ target }) => {
@@ -32,6 +34,7 @@ export const useModalForm = (initialState) => {
 
   const onSubmitEvent = (event) => {
     event.preventDefault();
+    setValidationText(true);
     const differenceTime = differenceInSeconds(end, start);
 
     if (differenceTime <= 0 || isNaN(differenceTime)) {
@@ -40,11 +43,16 @@ export const useModalForm = (initialState) => {
         title: "The date is incorret",
         text: "Try again",
       });
+      return;
     }
-    if (title.length <= 0) inputRef.current.select();
+    if (title.length <= 0) {
+      inputRef.current.select();
+      return;
+    }
 
     startSavingEvent(formValues);
     onCloseModal();
+    setValidationText(false);
   };
 
   return {
@@ -52,7 +60,7 @@ export const useModalForm = (initialState) => {
     notes,
     start,
     end,
-    validationText,
+    titleInputClass,
     inputRef,
     setFormValues,
     onValueChange,
