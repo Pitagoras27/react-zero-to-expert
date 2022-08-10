@@ -9,25 +9,52 @@ const renewToken = (req, res = response) => {
   });
 }
 
-const loginUser = (req, res = response) => {
-  const { body } = req;
+const loginUser = async (req, res = response) => {
+  try {
+    const { body } = req;
+    const { password, email } = body;
 
-  const { password, email } = body;
+    // UserSchema contains previsualization of Mongo
+    const user = await UserSchema.findOne({ email });
 
-  res.status(201).json({
-    ok: true,
-    msg: 'user logued',
-    password, email
-  });
+    if(!user) {
+      return res.status(400).json({
+        ok: false,
+        msg: 'Email not exists!',
+      });
+    }
+
+    const userPass = bcrypt.compareSync(password, user.password);
+
+    if (!userPass) {
+      return res.status(400).json({
+        ok: false,
+        msg: 'Password is not correct',
+      });
+    }
+
+    res.status(201).json({
+      ok: true,
+      uid: userPass._id,
+      msg: 'user logued',
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      msg: 'An error occurred, try later',
+    });
+  }
+  
 }
 
-const createUser = async(req, res = response) => {
+const createUser = async (req, res = response) => {
   try {
     const { email, password } = req.body;
 
     let user = await UserSchema.findOne({ email });
     if( user ) {
-      res.status(400).json({
+      return res.status(400).json({
         ok: false, 
         msg: 'Mail already exists in database, try with other'
       })
@@ -38,7 +65,7 @@ const createUser = async(req, res = response) => {
     const salt = bcrypt.genSaltSync();
     user.password = bcrypt.hashSync(password, salt);
 
-    user.save();
+    await user.save();
 
     res.status(201).json({
       ok: true,
