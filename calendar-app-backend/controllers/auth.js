@@ -1,5 +1,6 @@
 const { response } = require('express');
 const UserSchema = require('../models/user');
+const bcrypt = require('bcryptjs');
 
 const renewToken = (req, res = response) => {
   res.json({
@@ -22,7 +23,7 @@ const loginUser = (req, res = response) => {
 
 const createUser = async(req, res = response) => {
   try {
-    const { email } = req.body;
+    const { email, password } = req.body;
 
     let user = await UserSchema.findOne({ email });
     if( user ) {
@@ -33,6 +34,10 @@ const createUser = async(req, res = response) => {
     }
 
     user = new UserSchema(req.body);
+
+    const salt = bcrypt.genSaltSync();
+    user.password = bcrypt.hashSync(password, salt);
+
     user.save();
 
     res.status(201).json({
