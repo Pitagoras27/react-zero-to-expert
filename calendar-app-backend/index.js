@@ -1,7 +1,11 @@
 const express = require('express');
 require('dotenv').config();
+const { dbConnection } = require('./database/config')
 
 const app = express();
+
+// db connection
+dbConnection();
 
 // middleware parseo body
 // ? this parser is here before of other middlewares
