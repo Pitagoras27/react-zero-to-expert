@@ -22,17 +22,25 @@ const loginUser = (req, res = response) => {
 
 const createUser = async(req, res = response) => {
   try {
-    const { body } = req;
+    const { email } = req.body;
 
-    const userInDB = new UserSchema(body);
-    userInDB.save();
+    let user = await UserSchema.findOne({ email });
+    if( user ) {
+      res.status(400).json({
+        ok: false, 
+        msg: 'Mail already exists in database, try with other'
+      })
+    }
+
+    user = new UserSchema(req.body);
+    user.save();
 
     res.status(201).json({
       ok: true,
+      uid: user._id,
       msg: 'register successful',
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       ok: false,
       msg: 'An error occurred, try later',
