@@ -1,6 +1,7 @@
 const { response } = require('express');
-const UserSchema = require('../models/user');
 const bcrypt = require('bcryptjs');
+const UserSchema = require('../models/user');
+const { generateJwt } = require('../helpers/generateJwt')
 
 const renewToken = (req, res = response) => {
   res.json({
@@ -33,10 +34,13 @@ const loginUser = async (req, res = response) => {
       });
     }
 
+    const token = await generateJwt(user._id, user.name);
+
     res.status(201).json({
       ok: true,
       uid: userPass._id,
       msg: 'user logued',
+      token
     });
 
   } catch (error) {
@@ -53,6 +57,7 @@ const createUser = async (req, res = response) => {
     const { email, password } = req.body;
 
     let user = await UserSchema.findOne({ email });
+
     if( user ) {
       return res.status(400).json({
         ok: false, 
@@ -64,6 +69,8 @@ const createUser = async (req, res = response) => {
 
     const salt = bcrypt.genSaltSync();
     user.password = bcrypt.hashSync(password, salt);
+    
+    const token = await generateJwt(user._id, user.name);
 
     await user.save();
 
@@ -71,6 +78,7 @@ const createUser = async (req, res = response) => {
       ok: true,
       uid: user._id,
       msg: 'register successful',
+      token
     });
   } catch (error) {
     res.status(500).json({
