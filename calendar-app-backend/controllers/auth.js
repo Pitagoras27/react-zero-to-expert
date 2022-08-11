@@ -3,10 +3,15 @@ const bcrypt = require('bcryptjs');
 const UserSchema = require('../models/user');
 const { generateJwt } = require('../helpers/generateJwt')
 
-const renewToken = (req, res = response) => {
+const renewToken = async(req, res = response) => {
+  const {uid, name} = req;
+
+  const token = await generateJwt(uid, name);
+
   res.json({
     ok: true,
-    msg: 'renew Token'
+    msg: 'renew Token',
+    token
   });
 }
 

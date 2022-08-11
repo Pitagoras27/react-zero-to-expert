@@ -1,11 +1,16 @@
 const express = require('express');
+const cors = require('cors');
 require('dotenv').config();
-const { dbConnection } = require('./database/config')
+const { dbConnection } = require('./database/config');
+const { use } = require('./routes/auth');
 
 const app = express();
 
 // db connection
 dbConnection();
+
+// CORS
+app.use(cors());
 
 // middleware parseo body
 // ? this parser is here before of other middlewares
