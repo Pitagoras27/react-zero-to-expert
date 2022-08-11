@@ -18,6 +18,7 @@ app.use( express.json() );
 
 // middleware routes
 app.use('/api/auth', require('./routes/auth'))
+app.use('/api/events', require('./routes/events'))
 
 app.use(express.static('public'));
 
