@@ -8,6 +8,7 @@ const getEvents = (req, res = response) => {
 }
 
 const addEvent = (req, res = response) => {
+  console.log(req.body);
   res.json({
     ok: true,
     msg: 'Event added successful'
