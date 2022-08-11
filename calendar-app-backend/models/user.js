@@ -2,7 +2,7 @@ const { response } = require('express');
 const { Schema, model } = require('mongoose');
 
 const UserSchema = Schema({
-  user: {
+  name: {
     type: String,
     require: true
   },
