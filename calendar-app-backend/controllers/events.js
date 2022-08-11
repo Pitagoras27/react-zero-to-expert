@@ -1,4 +1,5 @@
 const { response } = require('express');
+const EventSchema = require('../models/event');
 
 const getEvents = (req, res = response) => {
   res.json({
@@ -7,12 +8,23 @@ const getEvents = (req, res = response) => {
   });
 }
 
-const addEvent = (req, res = response) => {
-  console.log(req.body);
-  res.json({
-    ok: true,
-    msg: 'Event added successful'
-  });
+const addEvent = async(req, res = response) => {
+  const event = new EventSchema(req.body);
+  
+  try {
+    event.user = req.uid;
+    const eventSave = await event.save();
+
+    res.json({
+      ok: true,
+      event: eventSave
+    }); 
+  } catch (error) {
+    res.json({
+      ok: false,
+      msg: 'Occurs an error don\'t save an event'
+    });    
+  }
 }
 
 const updateEvent = (req, res = response) => {

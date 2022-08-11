@@ -18,8 +18,11 @@ const EventSchema = Schema({
   },
   user: {
     type: Schema.Types.ObjectID,
-    ref: 'User'
+    ref: 'User',
+    required: true
   }
 });
+
+// console.log(EventSchema.method('toJSON'));
 
 module.exports = model('Event', EventSchema);
