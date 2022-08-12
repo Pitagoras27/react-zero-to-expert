@@ -1,8 +1,8 @@
-import { useForm } from "../../hooks";
+import { useAuthStore, useForm } from "../../hooks";
 import "./loginPage.css";
 
 const loginValues = {
-  loginMail: "",
+  loginEmail: "",
   loginPassword: ""
 }
 
@@ -14,7 +14,7 @@ const registerValues = {
 }
 
 export const LoginPage = () => {
-  const { loginMail, loginPassword, onInputChange:onLoginInputChange } = useForm(loginValues);
+  const { loginEmail, loginPassword, onInputChange:onLoginInputChange } = useForm(loginValues);
   const {
     registerName,
     registerEmail,
@@ -22,10 +22,11 @@ export const LoginPage = () => {
     registerPassword2,
     onInputChange:onRegisterInputChange
   } = useForm(registerValues);
+  const { onLoginUser } = useAuthStore();
   
   const onLoginSubmit = (e) => {
     e.preventDefault();
-    // TODO: call calendarApi of axios to send post request to backend
+    onLoginUser({ email: loginEmail, password: loginPassword });
   }
 
   const onRegisterSubmit = (e) => {
@@ -49,8 +50,8 @@ export const LoginPage = () => {
                 type="text"
                 className="form-control"
                 placeholder="Correo"
-                name="loginMail"
-                value={loginMail}
+                name="loginEmail"
+                value={loginEmail}
                 onChange={onLoginInputChange}
               />
             </div>
