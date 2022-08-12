@@ -8,8 +8,8 @@ export const RouterApp = () => {
     <Routes>
       {
         status === 'not-authenticated'
-          ? <Route path='/*' element={<CalendarPage />} />
-          : <Route path='/auth/*' element={<LoginPage /> } />
+          ? <Route path='/auth/*' element={<LoginPage /> } />
+          : <Route path='/*' element={<CalendarPage />} />
       }
       <Route path='/*' element={<Navigate to='/auth/login' /> } />
     </Routes>
