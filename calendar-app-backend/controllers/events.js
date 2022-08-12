@@ -67,18 +67,45 @@ const updateEvent = async (req, res = response) => {
       ok: false,
       msg: 'Occurs an error, try later'
     });
-
-
   }
 }
 
-const deleteEvent = (req, res = response) => {
-  res.json({
-    ok: true,
-    msg: 'Event delete successful'
-  });
-}
+const deleteEvent = async(req, res = response) => {
+  const idReq = req.params.id;
+  const uid = req.uid;
+  
+  try {
+    const event = await EventSchema.findById(idReq);
 
+    if(!event) {
+      return res.status(404).json({
+        ok: false,
+        msg: 'Event not found.'
+      });
+    }
+
+    if(event.user.toString() !== uid) {
+      return res.status(401).json({
+        ok: false,
+        msg: 'Not authorized'
+      });
+    }
+
+    const updateDb = await EventSchema.findOneAndDelete(idReq);
+
+    res.json({
+      ok: true,
+      msg: 'Message deleted successful'
+    })
+
+  } catch (error) {    
+    res.status(500).json({
+      ok: false,
+      msg: 'Occurs an error, try later'
+    });
+  }
+}
+  
 module.exports = {
   getEvents,
   addEvent,
