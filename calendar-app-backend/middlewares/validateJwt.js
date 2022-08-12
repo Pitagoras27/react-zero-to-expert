@@ -18,7 +18,7 @@ const validateJwt = (req, res = response, next) => {
     req.uid = uid;
     
   } catch (error) {
-    res.status(400).json({ 
+    return res.status(400).json({ 
       ok: false,
       msg: 'Couldn\'t retrive token'
     })

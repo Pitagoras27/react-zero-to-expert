@@ -29,11 +29,47 @@ const addEvent = async(req, res = response) => {
   }
 }
 
-const updateEvent = (req, res = response) => {
-  res.json({
-    ok: true,
-    msg: 'Update Event successful'
-  });
+const updateEvent = async (req, res = response) => {
+  const idReq = req.params.id;
+  const uid = req.uid;
+  
+  try {
+    const event = await EventSchema.findById(idReq);
+
+    if(!event) {
+      return res.status(404).json({
+        ok: false,
+        msg: 'Event not found.'
+      });
+    }
+
+    if(event.user.toString() !== uid) {
+      return res.status(401).json({
+        ok: false,
+        msg: 'Not authorized'
+      });
+    }
+
+    const dataUpdated = {
+      ...req.body,
+      user: uid
+    }
+
+    const updateDb = await EventSchema.findByIdAndUpdate(idReq, dataUpdated);
+
+    res.json({
+      ok: true,
+      event: updateDb
+    })
+
+  } catch (error) {    
+    res.status(500).json({
+      ok: false,
+      msg: 'Occurs an error, try later'
+    });
+
+
+  }
 }
 
 const deleteEvent = (req, res = response) => {
