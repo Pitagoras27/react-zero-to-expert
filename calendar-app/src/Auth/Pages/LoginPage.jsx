@@ -25,7 +25,7 @@ export const LoginPage = () => {
   
   const onLoginSubmit = (e) => {
     e.preventDefault();
-    console.log({ loginMail, loginPassword });
+    // TODO: call calendarApi of axios to send post request to backend
   }
 
   const onRegisterSubmit = (e) => {
