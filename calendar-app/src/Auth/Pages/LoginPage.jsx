@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import Swal from "sweetalert2";
 import { useAuthStore, useForm } from "../../hooks";
 import "./loginPage.css";
 
@@ -22,7 +24,18 @@ export const LoginPage = () => {
     registerPassword2,
     onInputChange:onRegisterInputChange
   } = useForm(registerValues);
-  const { onLoginUser } = useAuthStore();
+  const { onLoginUser, errorMessage } = useAuthStore();
+
+  useEffect(() => {
+    if(errorMessage !== undefined) {
+      Swal.fire({
+        icon: "error",
+        title: errorMessage,
+        text: "Try again",
+      });
+    }
+
+  }, [errorMessage])
   
   const onLoginSubmit = (e) => {
     e.preventDefault();
