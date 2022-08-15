@@ -1,9 +1,16 @@
+import { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { LoginPage } from "../Auth";
 import { CalendarPage } from "../Calendar";
+import { useAuthStore } from "../hooks";
 
 export const RouterApp = () => {
-  const status = 'not-authenticated';
+  const { status, checkAuthToken } = useAuthStore();
+
+  useEffect(() => {
+    checkAuthToken();
+  }, [])
+
   return (
     <Routes>
       {
