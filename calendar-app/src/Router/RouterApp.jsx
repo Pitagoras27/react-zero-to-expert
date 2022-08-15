@@ -11,6 +11,10 @@ export const RouterApp = () => {
     checkAuthToken();
   }, [])
 
+  if(status === 'checking') {
+    return <h3>Loading</h3>
+  }
+
   return (
     <Routes>
       {
