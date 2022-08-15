@@ -24,7 +24,7 @@ export const LoginPage = () => {
     registerPassword2,
     onInputChange:onRegisterInputChange
   } = useForm(registerValues);
-  const { onLoginUser, errorMessage } = useAuthStore();
+  const { startLoginUser, startUserRegister, errorMessage } = useAuthStore();
 
   useEffect(() => {
     if(errorMessage !== undefined) {
@@ -39,17 +39,19 @@ export const LoginPage = () => {
   
   const onLoginSubmit = (e) => {
     e.preventDefault();
-    onLoginUser({ email: loginEmail, password: loginPassword });
+    startLoginUser({ email: loginEmail, password: loginPassword });
   }
 
   const onRegisterSubmit = (e) => {
     e.preventDefault();
-    console.log({
-      registerName,
-      registerEmail,
-      registerPassword,
-      registerPassword2
-    })
+    const userRegister = {
+      name: registerName,
+      email: registerEmail,
+      password: registerPassword,
+      password2: registerPassword2
+    }
+    startUserRegister(userRegister);
+    
   }
 
   return (

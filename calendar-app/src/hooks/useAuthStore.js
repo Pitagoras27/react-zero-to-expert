@@ -1,19 +1,19 @@
 import { useDispatch, useSelector } from "react-redux";
 import { calendarApi } from "../api";
+import { setLocalStorage } from "../helpers";
 import { clearErrorMessage, onChecking, onLogin, onLogout } from "../store/auth/authSlice";
 
 export const useAuthStore = () => {
   const dispatch = useDispatch();
   const { status, errorMessage } = useSelector(state => state.auth);
 
-  const onLoginUser = async({ email, password }) => {
+  const startLoginUser = async({ email, password }) => {
     dispatch(onChecking());
     try {
       const { data } = await calendarApi.post('/auth', { email, password });
       const { name, uid, token } = data;
 
-      localStorage.setItem('token', token);
-      localStorage.setItem('token-init-date', Date.now());
+      setLocalStorage(token);
       dispatch(onLogin({ name, uid }));
     } catch (error) {
         dispatch(onLogout('Incorrect credentials'));
@@ -24,8 +24,34 @@ export const useAuthStore = () => {
     }
   }
 
+  const startUserRegister = async({ name, email, password, password2 }) => {
+    dispatch(onChecking());
+    if(password !== password2) {
+      dispatch(onLogout('Password should be equal!'))
+      setTimeout(() => {
+        dispatch(clearErrorMessage());
+      }, 10)
+      return; 
+    }
+
+    try {
+      const { data } = await calendarApi.post('/auth/new', { name, email, password, password2 });
+      const { uid, token } = data;
+      dispatch(onLogin({ name, uid }));
+      setLocalStorage(token);
+      
+    } catch (error) {
+      const { msg } = error.response.data;
+      dispatch(onLogout(msg));
+      setTimeout(() => {
+        dispatch(clearErrorMessage());
+      }, 10)
+    }
+  }
+
   return {
-    onLoginUser,
+    startLoginUser,
+    startUserRegister,
     status,
     errorMessage
   }
