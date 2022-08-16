@@ -1,6 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import calendarApi from "../api/calendarApi";
-import { onAddNewEvent, onDeleteEvent, onUpdateEvent, setActiveEvent } from "../store/calendar/calendarSlice";
+import { friedlyDate } from "../helpers";
+import {
+  onAddNewEvent,
+  onDeleteEvent,
+  onLoadEvents,
+  onUpdateEvent,
+  setActiveEvent
+} from "../store/calendar/calendarSlice";
 
 export const useCalendarStore = () => {
   const { events, activeEvent } = useSelector((state) => state.calendar);
@@ -25,6 +32,17 @@ export const useCalendarStore = () => {
     dispatch(onDeleteEvent());
   }
 
+  const startLoadingEvents = async() => {
+    try {
+      const { data } = await calendarApi.get('/events');
+      const { events } = data;
+      dispatch(onLoadEvents(friedlyDate(events)));
+    } catch (error) {
+      console.log(error)
+      console.log('Don\'t retrive information about events');
+    }
+  }
+
   return {
     events,
     activeEvent,
@@ -32,5 +50,6 @@ export const useCalendarStore = () => {
     onSetActiveEvent,
     startSavingEvent,
     startDeleteEvent,
+    startLoadingEvents
   };
 };
