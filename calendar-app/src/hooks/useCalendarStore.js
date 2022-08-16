@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
 import calendarApi from "../api/calendarApi";
 import { friedlyDate } from "../helpers";
 import {
@@ -19,12 +20,22 @@ export const useCalendarStore = () => {
   };
 
   const startSavingEvent = async (calendarEvent) => {
-    if (calendarEvent.id) {
-      dispatch(onUpdateEvent({ ...calendarEvent }));
-    } else {
+    try {
+      if (calendarEvent.id) {
+        await calendarApi.put(`/events/${calendarEvent.id}`, calendarEvent);
+        dispatch(onUpdateEvent({ ...calendarEvent }));
+        return;
+      }
+
       const { data } = await calendarApi.post('/events', calendarEvent);
       const { id } = data?.event;
       dispatch(onAddNewEvent({ ...calendarEvent, id, user }));
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: error.response.data.msg,
+        text: "Error",
+      })
     }
   };
 
@@ -38,7 +49,6 @@ export const useCalendarStore = () => {
       const { events } = data;
       dispatch(onLoadEvents(friedlyDate(events)));
     } catch (error) {
-      console.log(error)
       console.log('Don\'t retrive information about events');
     }
   }
