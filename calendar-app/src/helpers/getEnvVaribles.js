@@ -1,7 +1,6 @@
 export const getEnvVariables = () => {
-  import.meta.env
 
   return {
-    ...import.meta.env
+    VITE_BASE_API_CALENDAR: import.meta.env.VITE_BASE_API_CALENDAR
   }
 }

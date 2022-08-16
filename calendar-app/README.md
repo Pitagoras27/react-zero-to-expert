@@ -13,3 +13,5 @@
 ```
 VITE_API_URL=http://localhost:4000/api
 ```
+
+Las variables de producción se encuentran excluidas del deployment en Heroku
