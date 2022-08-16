@@ -25,16 +25,28 @@ export const calendarSlice = createSlice({
     },
     onDeleteEvent: (state) => {
       if(state.activeEvent) {
-        state.events = state.events.filter(event => event._id !== state.activeEvent._id);
+        state.events = state.events.filter(event => event.id !== state.activeEvent.id);
         state.activeEvent = null;
       }
     },
     onLoadEvents: (state, { payload }) => {
       state.isLoadingEvent = false;
       state.events = payload; 
+    },
+    onLogoutCalendar: (state) => {
+      state.events = [];
+      state.activeEvent = null;
+      state.isLoadingEvent = true;
     }
   },
 });
 
-// Action creators are generated for each case reducer function
-export const { setActiveEvent, onAddNewEvent, onUpdateEvent, onDeleteEvent, onLoadEvents } = calendarSlice.actions;
+
+export const {
+  setActiveEvent,
+  onAddNewEvent,
+  onUpdateEvent,
+  onDeleteEvent,
+  onLoadEvents,
+  onLogoutCalendar
+} = calendarSlice.actions;
