@@ -5,12 +5,13 @@ const { generateJwt } = require('../helpers/generateJwt')
 
 const renewToken = async(req, res = response) => {
   const {uid, name} = req;
-
   const token = await generateJwt(uid, name);
 
   res.json({
     ok: true,
     msg: 'renew Token',
+    uid,
+    name,
     token
   });
 }
@@ -43,7 +44,8 @@ const loginUser = async (req, res = response) => {
 
     res.status(201).json({
       ok: true,
-      uid: userPass._id,
+      uid: user._id,
+      name: user.name,
       msg: 'user logued',
       token
     });
@@ -66,7 +68,7 @@ const createUser = async (req, res = response) => {
     if( user ) {
       return res.status(400).json({
         ok: false, 
-        msg: 'Mail already exists in database, try with other'
+        msg: 'Email already exists in database.'
       })
     }
 
