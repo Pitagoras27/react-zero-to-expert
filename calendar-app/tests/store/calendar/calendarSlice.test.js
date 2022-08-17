@@ -20,6 +20,7 @@ describe('Test of calendarSlice', () => {
     const state = calendarSlice.reducer(eventsInitialState, onLoadEvents(events));
 
     expect(state).toEqual(eventsLoadEvents);
+    expect(state.isLoadingEvent).toBeFalsy();
   });
 
   test('should set active event', () => {
