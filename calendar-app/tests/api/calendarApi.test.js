@@ -15,9 +15,7 @@ describe('test calendar API', () => {
       const res = await calendarApi.get('/auth')
   
       expect(res.config.headers['x-token']).toBe(token);  
-    } catch (error) {
-      console.log(error)
-    }
+    } catch (error) {}
   })
 
 

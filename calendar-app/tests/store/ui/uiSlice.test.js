@@ -1,6 +1,22 @@
-// should return default state
-// -> use getInitialState() to access (two options. REMEMBER You Do it)
+import { onModalDateClose, onModalDateOpen, uiSlice } from "../../../src/store/ui/uiSlice";
 
-// should change state by true when `onModalDateOpen` reducer is call
+describe('tests uiSlice', () => {
 
-// should change state by false when `onModalDateClose` reducer is call
+  test('should return default state', () => {
+    expect(uiSlice.getInitialState().isDateModalOpen).toBeFalsy();
+  })
+
+  test('should change state by true when `onModalDateOpen` is call', () => {
+    let state = uiSlice.getInitialState();
+    state = uiSlice.reducer(state, onModalDateOpen());
+    expect(state.isDateModalOpen).toBeTruthy();
+  })
+
+  // ! FALSE POSITIVE 
+  // ? The correct form to evaluate this expect is declare a let variable and reasign its values
+  test('should change state by false when `onModalDateClose` is call', () => {
+    const state = uiSlice.getInitialState();
+    uiSlice.reducer(state, onModalDateClose());
+    expect(state.isDateModalOpen).toBeFalsy();
+  })
+})
