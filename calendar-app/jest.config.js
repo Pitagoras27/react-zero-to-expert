@@ -6,4 +6,15 @@ module.exports = {
   moduleNameMapper: {
       '\\.(css|less)$': '<rootDir>/tests/mocks/styleMock.js',
   },
+  "collectCoverage": true,
+  "coverageReporters": ["lcov"],
+  "coverageDirectory": "test-coverage",
+  "coverageThreshold": {
+    "global": {
+    "branches": 0,
+    "functions": 0,
+    "lines": 0,
+    "statements": 0
+    }
+  }
 }

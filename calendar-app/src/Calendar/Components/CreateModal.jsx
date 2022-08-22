@@ -5,6 +5,7 @@ import Modal from "react-modal";
 
 import { useEffect } from "react";
 import "react-datepicker/dist/react-datepicker.css";
+import { getEnvVariables } from "../../helpers";
 import { useCalendarStore, useModalForm, useUiStore } from "../../hooks";
 
 const customStyles = {
@@ -18,7 +19,9 @@ const customStyles = {
   },
 };
 
-Modal.setAppElement("#root");
+if(getEnvVariables().VITE_MODE === 'dev') {
+  Modal.setAppElement("#root");
+}
 
 export const CreateModal = () => {
   const { isDateModalOpen, onCloseModal } = useUiStore();

@@ -1,5 +1,7 @@
 .env
 .env.production
+test-coverage
+coverage
 
 # Logs
 logs
