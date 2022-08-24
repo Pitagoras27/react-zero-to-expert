@@ -39,6 +39,7 @@ export const LoginPage = () => {
   
   const onLoginSubmit = (e) => {
     e.preventDefault();
+    console.log({ loginEmail, loginPassword });
     startLoginUser({ email: loginEmail, password: loginPassword });
   }
 
@@ -59,7 +60,7 @@ export const LoginPage = () => {
       <div className="row">
         <div className="col-md-6 login-form-1">
           <h3>Ingreso</h3>
-          <form onSubmit={onLoginSubmit}>
+          <form onSubmit={onLoginSubmit} aria-label="login-form">
             <div className="form-group mb-2">
               <input
                 type="text"
@@ -92,13 +93,14 @@ export const LoginPage = () => {
 
         <div className="col-md-6 login-form-2">
           <h3>Registro</h3>
-          <form onSubmit={onRegisterSubmit}>
+          <form onSubmit={onRegisterSubmit} aria-label="register-form">
             <div className="form-group mb-2">
               <input
                 type="text"
                 className="form-control"
-                placeholder="Nombre"
+                placeholder="Name"
                 name="registerName"
+                aria-label="register-user-name"
                 value={registerName}
                 onChange={onRegisterInputChange}
               />
@@ -109,6 +111,7 @@ export const LoginPage = () => {
                 className="form-control"
                 placeholder="Correo"
                 name="registerEmail"
+                aria-label="register-user-email"
                 value={registerEmail}
                 onChange={onRegisterInputChange}
               />
@@ -119,6 +122,7 @@ export const LoginPage = () => {
                 className="form-control"
                 placeholder="Contraseña"
                 name="registerPassword"
+                aria-label="password-register"
                 value={registerPassword}
                 onChange={onRegisterInputChange}
               />
@@ -130,6 +134,7 @@ export const LoginPage = () => {
                 className="form-control"
                 placeholder="Repita la contraseña"
                 name="registerPassword2"
+                aria-label="password-confirm"
                 value={registerPassword2}
                 onChange={onRegisterInputChange}
               />
