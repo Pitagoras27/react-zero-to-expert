@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test in FabToAddEvent component should render  FabToAddEvent 1`] = `
+<div>
+  <button
+    class="fab btn btn-primary"
+  >
+    <i
+      class="fas fa-plus"
+    />
+  </button>
+</div>
+`;
