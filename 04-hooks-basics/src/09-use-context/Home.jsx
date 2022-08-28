@@ -6,8 +6,8 @@ export const Home = () => {
   return (
     <>
       <h2>Home</h2>
-      <code>
-        {user?.name &&` Bienvenido! ${JSON.stringify(user?.name)}`}
+      <code aria-label="pre">
+        {user?.id &&` Bienvenido! ${JSON.stringify(user?.name)} tu identificador es ${user?.id}`}
       </code>
     </>
   )
