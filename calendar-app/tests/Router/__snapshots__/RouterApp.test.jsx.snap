@@ -22,7 +22,9 @@ exports[`test on RouterApp Component should show register and login page 1`] = `
         <h3>
           Ingreso
         </h3>
-        <form>
+        <form
+          aria-label="login-form"
+        >
           <div
             class="form-group mb-2"
           >
@@ -62,14 +64,17 @@ exports[`test on RouterApp Component should show register and login page 1`] = `
         <h3>
           Registro
         </h3>
-        <form>
+        <form
+          aria-label="register-form"
+        >
           <div
             class="form-group mb-2"
           >
             <input
+              aria-label="register-user-name"
               class="form-control"
               name="registerName"
-              placeholder="Nombre"
+              placeholder="Name"
               type="text"
               value=""
             />
@@ -78,6 +83,7 @@ exports[`test on RouterApp Component should show register and login page 1`] = `
             class="form-group mb-2"
           >
             <input
+              aria-label="register-user-email"
               class="form-control"
               name="registerEmail"
               placeholder="Correo"
@@ -89,6 +95,7 @@ exports[`test on RouterApp Component should show register and login page 1`] = `
             class="form-group mb-2"
           >
             <input
+              aria-label="password-register"
               class="form-control"
               name="registerPassword"
               placeholder="Contraseña"
@@ -100,6 +107,7 @@ exports[`test on RouterApp Component should show register and login page 1`] = `
             class="form-group mb-2"
           >
             <input
+              aria-label="password-confirm"
               class="form-control"
               name="registerPassword2"
               placeholder="Repita la contraseña"
